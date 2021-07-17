@@ -47,19 +47,51 @@ def load_songs(binary_file: str) -> list[Song]:
 
 
 def create_full_playlist(old_songs_file: str, new_songs_file: str) -> None:
-    pass
+    list_with_found_song_indexes = list()
+    list_with_missing_song_indexes = list()
+    num_of_found_songs = 0
+
+    old_song_names = load_songs(old_songs_file)
+    new_song_names = load_songs(new_songs_file)
+
+    for index, old_song in enumerate(old_song_names):
+        for new_song in new_song_names:
+            if old_song.get_song() == new_song.get_song():
+                num_of_found_songs += 1
+                list_with_found_song_indexes.append(index)
+
+    for i in range(len(old_song_names)):
+        if i not in list_with_found_song_indexes:
+            list_with_missing_song_indexes.append(i)
+
+    for i in list_with_missing_song_indexes:
+        print(old_song_names[i].get_song())
+
+    print(list_with_missing_song_indexes)
 
 
 if __name__ == '__main__':
+    # print("Welcome to Music Organizer!\n")
+    # old_songs_file_path_songs = input("Please enter the path of the "
+    #                                   "file\nwith the song names you wish to "
+    #                                   "compare:\n")
+    # old_songs_file_path_artists = input("Please enter the path of the "
+    #                                     "file\nwith the corresponding artist "
+    #                                     "names:\n")
+    # new_songs_file_path_songs = input("Please enter the path of the "
+    #                                   "file\nwith the song names you wish to "
+    #                                   "compare:\n")
+    # new_songs_file_path_artists = input("Please enter the path of the "
+    #                                     "file\nwith the corresponding artist "
+    #                                     "names:\n")
+    # print("\nChecking...\n\n\n")
+    #
+    # old_songs = create_songs(old_songs_file_path_songs,
+    #                          old_songs_file_path_artists)
+    # store_songs(old_songs, "OldSongsObjects")
+    #
+    # new_songs = create_songs(new_songs_file_path_songs,
+    #                          new_songs_file_path_artists)
+    # store_songs(old_songs, "NewSongsObjects")
 
-    # old_songs_list = create_songs()
-    # old_store_songs(songs_list)
-    # old_song_names = load_songs("OldSongsObjects")
-    # for index, song in enumerate(old_song_names):
-    #     print(f"{index + 1}- Name: {song.name} Artist: {song.artist}")
-
-    # new_songs_list = create_songs("new_songs_songs.txt", "new_songs_artist.txt")
-    # store_songs(new_songs_list, "NewSongsObjects")
-    new_song_names = load_songs("NewSongsObjects")
-    for index, song in enumerate(new_song_names):
-        print(f"{index + 1}- Name: {song.name} Artist: {song.artist}")
+    create_full_playlist("OldSongsObjects", "NewSongsObjects")
