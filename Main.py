@@ -1,8 +1,15 @@
 import pickle
 
+"""A basic program to create song objects you can query"""
+
 
 class Song:
     def __init__(self, name: str):
+        """
+        Initializes song name
+        :param name: song name.
+        :type name: str
+        """
         self.artist = ""
         self.name = name
 
@@ -13,6 +20,14 @@ class Song:
         return self.artist
 
     def add_artist(self, artist_name: str) -> None:
+        """
+        asigns the artist to the artist attribute
+        if not present it defaults to `Various Artists`
+        :param artist_name: the artist name
+        :type artist_name: str
+        :return: None
+        :rtype: None
+        """
         if artist_name.isspace():
             self.artist = "Various Artists"
         else:
@@ -20,6 +35,9 @@ class Song:
 
 
 def create_songs(binary_file_songs: str, binary_file_artist: str) -> list[Song]:
+    """
+    Function to create the songs and store them as binary files
+    """
     song_names = list()
     with open(binary_file_songs, "r", encoding="utf8") as current_song, \
             open(binary_file_artist, "r", encoding="utf8") as \
